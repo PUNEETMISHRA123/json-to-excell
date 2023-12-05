@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+  <script type="text/javascript" src="javascript/convert.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <center>
+    <h1 class="heading-class">
+      convert json to excell
+    </h1>
+    <h2>
+      paste your json file
+    </h2>
+    <textarea class="text-class" id="jsonfile" cols="70" rows="20">
+
+    </textarea>
+  </center>
+  <center>
+  <button type="button" id="convertTOEcell" class="btn-class">click to convert</button>
+</center>
+
+  <script>
+  document.addEventListener('DOMContentLoaded',function(){
+   document.getElementById('convertTOEcell').addEventListener('click',function(){
+    var data=document.getElementById('jsonfile').value;
+    var object=eval(data);
+    convertTOSheet(object);
+   })
+
+   function convertTOSheet(object)
+   {
+    var File="File.xlsx";
+    var WorkSheet=XLSX.utils.json_to_sheet(object);
+    var WorkBook=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(WorkBook,WorkSheet,"WorkSheet");
+    XLSX.writeFile(WorkBook,File);
+   }
+  });
+  </script>
+</body>
+</html>
